@@ -13,12 +13,12 @@ public class MarkdownParse {
         while(currentIndex < markdown.length()) {
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
 
-            if(nextOpenBracket == -1){
-                break;
-            }
-            
             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
             int openParen = markdown.indexOf("(", nextCloseBracket);
+
+            if(nextCloseBracket == -1 || openParen == -1 || nextOpenBracket == -1){
+                break;
+            }
 
             if(openParen != (nextCloseBracket + 1)){
                 currentIndex = nextCloseBracket + 1;
@@ -36,7 +36,6 @@ public class MarkdownParse {
 		Path fileName = Path.of(args[0]);
 	    String contents = Files.readString(fileName);
         ArrayList<String> links = getLinks(contents);
-        System.out.println("hello");
         System.out.println(links);
     }
 }
