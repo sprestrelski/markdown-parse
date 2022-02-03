@@ -23,7 +23,7 @@ public class MarkdownParseTest {
 
     @Test
     public void getLinks2() throws IOException{
-        List<String> expect = List.of("goodbye.com", "image.jpg");
+        List<String> expect = List.of("goodbye.com");
         Path fileName = Path.of("new-test.md");
 	    String contents = Files.readString(fileName);
         assertEquals(expect, MarkdownParse.getLinks(contents));
