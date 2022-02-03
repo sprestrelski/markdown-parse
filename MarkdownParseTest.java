@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.beans.Transient;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,6 +43,14 @@ public class MarkdownParseTest {
         List<String> expect = List.of();
         Path fileName = Path.of("test-file4.md");
 	    String contents = Files.readString(fileName);
+        assertEquals(expect, MarkdownParse.getLinks(contents));
+    }
+
+    @Test
+    public void testNoImageLinks() throws IOException{
+        List<String> expect = List.of("https://something.com", "some-page.html");
+        Path fileName = Path.of("tester.md");
+        String contents = Files.readString(fileName);
         assertEquals(expect, MarkdownParse.getLinks(contents));
     }
 }  
