@@ -11,20 +11,21 @@ public class MarkdownParse {
         // the next )
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
-            int nextBang = markdown.indexOf("!", currentIndex);
+            //int nextBang = markdown.indexOf("!", currentIndex);
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
             if (nextOpenBracket == -1)
                 break;
+            else if (markdown.charAt(nextOpenBracket - 1) == '!'){
+                currentIndex = nextOpenBracket + 1;
+                continue;
+            }
             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
             currentIndex = nextOpenBracket+ 1;
             if (nextCloseBracket < nextOpenBracket || openParen < nextCloseBracket || closeParen < openParen)
                     continue;
-            
-            if (nextBang == nextOpenBracket - 1){
-                continue;
-            } else if (nextCloseBracket == openParen - 1){
+            else if (nextCloseBracket == openParen - 1){
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
             }else{
                 continue;
