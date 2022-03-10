@@ -1,12 +1,11 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; 
+import org.junit.*; 
 
-import java.beans.Transient;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import org.junit.*;
+import java.util.ArrayList;
 
 public class MarkdownParseTest {
     @Test
@@ -14,6 +13,7 @@ public class MarkdownParseTest {
         assertEquals(2, 1 + 1);
     }
 
+    /*
     @Test
     public void getLinks1() throws IOException{
         List<String> expect = List.of("https://something.com", "some-page.html");
@@ -50,6 +50,31 @@ public class MarkdownParseTest {
     public void testNoImageLinks() throws IOException{
         List<String> expect = List.of("https://something.com", "some-page.html");
         Path fileName = Path.of("tester.md");
+        String contents = Files.readString(fileName);
+        assertEquals(expect, MarkdownParse.getLinks(contents));
+    }
+
+    */
+    @Test
+    public void testCodeQuote() throws IOException{
+        List<String> expect = List.of("`google.com", "google.com", "ucsd.edu");
+        Path fileName = Path.of("lab8_1.md");
+        String contents = Files.readString(fileName);
+        assertEquals(expect, MarkdownParse.getLinks(contents));
+    }
+
+    @Test
+    public void testNestedEsc() throws IOException{
+        List<String> expect = List.of("a.com", "a.com(())", "example.com");
+        Path fileName = Path.of("lab8_2.md");
+        String contents = Files.readString(fileName);
+        assertEquals(expect, MarkdownParse.getLinks(contents));
+    }
+
+    @Test
+    public void testMultiLineLinks() throws IOException{
+        List<String> expect = List.of("https://ucsd-cse15l-w22.github.io/");
+        Path fileName = Path.of("lab8_3.md");
         String contents = Files.readString(fileName);
         assertEquals(expect, MarkdownParse.getLinks(contents));
     }

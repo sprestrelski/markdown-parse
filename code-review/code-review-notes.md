@@ -1,0 +1,3 @@
+- Easiest way to run their tests was running javac on the tester file or using JUnit to run the tests directly. Their Makefile has incorrectly named targets, so it doesn't compile the classes
+- 
+- I don't know, since I wasn't in this group before this week so I don't have this group's tests.
